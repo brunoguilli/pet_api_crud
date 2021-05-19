@@ -1,0 +1,26 @@
+{
+  "name": "pet_api_crud",
+  "version": "1.0.0",
+  "description": "Pet API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoguilli/pet_api_crud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunoguilli/pet_api_crud/issues"
+  },
+  "homepage": "https://github.com/brunoguilli/pet_api_crud#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "pg-promise": "^10.10.2"
+  }
+}
