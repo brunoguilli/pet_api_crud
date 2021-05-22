@@ -7,5 +7,6 @@ exports.getOwners = function () {
 
 exports.saveOwner = function (owner) {
     // database.one -> Espera algum retorno
-    return database.one('insert into pet_owner(cpf, nome, data_nascimento, sexo) values ($1, $2, $3, $4) returning *', [ owner.cpf, owner.nome, owner.data_nascimento, owner.sexo ]);
+    return database.one('insert into pet_owner(cpf, nome, data_nascimento, sexo) values ($1, $2, $3, $4) returning *', 
+        [ owner.cpf, owner.nome, owner.data_nascimento, owner.sexo ]);
 }

@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/brunoguilli/pet_api_crud#readme",
   "dependencies": {
+    "@supercharge/strings": "^1.18.0",
     "axios": "^0.21.1",
+    "biguint-format": "^1.0.2",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "jest": "^26.6.3",
