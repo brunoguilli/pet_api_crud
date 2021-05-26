@@ -15,11 +15,11 @@ exports.getOwner = async function (cpf) {
 exports.saveOwner = async function (owner) {
     const existingOwner = await ownerData.getOwnerByCpf(owner.cpf);
     if (existingOwner) throw new Error('Owner already exists');
-    return ownerData.saveOwner(owner)
+    return ownerData.saveOwner(owner);
 }
 
 exports.deleteOwner = function (cpf) {
-    return ownerData.deleteOwner(cpf)
+    return ownerData.deleteOwner(cpf);
 }
 
 exports.updateOwner = async function (cpf, owner) {

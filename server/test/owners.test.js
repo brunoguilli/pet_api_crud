@@ -2,6 +2,7 @@
 const axios = require('axios');
 const ownerService = require('../service/ownerService');
 const randomValuesTemplate = require('./randomValuesTemplate');
+var dateFormat = require('dateformat');
 
 const { exception } = require('console');
 
@@ -21,7 +22,7 @@ const request = function (url, method, data) {
     return axios ({ url, method, data, validateStatus: false });
 }
 
-test.only('Should get owners', async function () {
+test('Should get owners', async function () {
 
     const owner1 = await ownerService.saveOwner({cpf: generateNumber('CPF'),
         nome: generateChar(20),
@@ -90,18 +91,6 @@ test('Should not save a owner', async function () {
 
 });
 
-test('Should not update a owner', async function () {
-    
-    const owner = {
-        cpf: 1
-    };
-    // Comando para alterar no banco
-    const response = await request(`http://localhost:3000/owners/${owner.cpf}`, 'put', owner);
-
-    expect(response.status).toBe(404);
-
-});
-
 test('Should update a owner', async function () {
 
     // Insere um owner no banco
@@ -131,6 +120,18 @@ test('Should update a owner', async function () {
 
     // Deleta o registro
     await ownerService.deleteOwner(owner.cpf);
+
+});
+
+test('Should not update a owner', async function () {
+    
+    const owner = {
+        cpf: 1
+    };
+    // Comando para alterar no banco
+    const response = await request(`http://localhost:3000/owners/${owner.cpf}`, 'put', owner);
+
+    expect(response.status).toBe(404);
 
 });
 

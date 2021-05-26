@@ -6,11 +6,11 @@ exports.getOwners = function () {
 };
 
 exports.getOwner = function (cpf) {
-    return database.oneOrNone('select * from pet_owner where cpf = $1', cpf);
+    return database.oneOrNone('select * from pet_owner where cpf = $1', [cpf]);
 };
 
 exports.getOwnerByCpf = function (cpf) {
-    return database.oneOrNone('select * from pet_owner where cpf = $1', cpf);
+    return database.oneOrNone('select * from pet_owner where cpf = $1', [cpf]);
 };
 
 exports.saveOwner = function (owner) {
@@ -26,7 +26,6 @@ exports.deleteOwner = function (cpf) {
 
 exports.updateOwner = async function (cpf, owner) {
     return database.none('update pet_owner set nome = $1, data_nascimento = $2, sexo = $3 where cpf = $4',
-        [owner.nome, owner.data_nascimento, owner.sexo, cpf]
-    )
+        [owner.nome, owner.data_nascimento, owner.sexo, cpf]);
 };
 

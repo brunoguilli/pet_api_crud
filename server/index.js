@@ -6,17 +6,18 @@ app.use(express.json());
 
 // Delega o local das requisições por meio do middleware
 app.use('/', require('./route/ownerRoute'));
+app.use('/', require('./route/petRoute'));
 
 // Error handdler centralizado
 app.use(function (error, req, res, next){
     
-    if (error.message === 'Owner already exists'){
-        return res.status(409).send(e.message);
+    if (error.message === 'Owner already exists' || error.message === 'Pet already exists'){
+        return res.status(409).send(error.message);
     } 
-    if (error.message === 'Owner not found'){
-        return res.status(404).send(e.message);
+    if (error.message === 'Owner not found' || error.message === 'Pet not found'){
+        return res.status(404).send(error.message);
     } 
-    res.status(500).send(e.message);
+    res.status(500).send(error.message);
     
 });
 
