@@ -1,13 +1,13 @@
 
-var dateFormat = require('dateformat');
 
-function randomDate(start, end) {
-    date =  new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-    date = date.toDateString();
-    return dateFormat(date, "yyyy-mm-dd h:MM:ss");
+
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-console.log("teste");
-console.log(randomDate( new Date(1990, 0, 1), new Date()) );
-console.log(dateFormat(new Date(), "yyyy-mm-dd h:MM:ss"));
-
+if (isNumber('124') === true) {
+    console.log('verdadeiro');
+} else {
+    console.log('falso');
+};
+// console.log(isNumber('124a'));

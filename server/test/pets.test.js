@@ -6,10 +6,6 @@ var dateFormat = require('dateformat');
 
 const { exception } = require('console');
 
-const generateNumber = function (tipo) {
-    return randomValuesTemplate.generateNumber(tipo.toUpperCase());
-}
-
 const generateChar = function (limite) {
     return randomValuesTemplate.generateChar(limite)
 }
@@ -21,6 +17,52 @@ function randomDate(start, end) {
 const request = function (url, method, data) {
     return axios ({ url, method, data, validateStatus: false });
 }
+
+
+test('Should save a pet', async function () {
+
+    const data = {id: 1,
+        tipo_animal: 1,
+        nome: generateChar(20),
+        data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
+        sexo: generateChar(1),
+        raca: generateChar(20)};
+
+    const response = await request('http://localhost:3000/pets', 'post', data);
+
+    expect(response.status).toBe(201);
+
+    const pet = response.data;
+
+    expect(pet.tipo_animal).toBe(data.tipo_animal);
+    expect(pet.nome).toBe(data.nome);
+    expect(dateFormat(pet.data_nascimento, "yyyy-mm-dd")).toBe(data.data_nascimento);
+    expect(pet.sexo).toBe(data.sexo);
+    expect(pet.raca).toBe(data.raca);
+
+    await petService.deletePet(pet.id);
+
+});
+
+// test.only('Should not save a pet', async function () {
+
+//     const data = {id: 1,
+//         tipo_animal: 1,
+//         nome: generateChar(20),
+//         data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
+//         sexo: generateChar(1),
+//         raca: generateChar(20)};
+
+//     const response1 = await request('http://localhost:3000/pets', 'post', data);
+//     const response2 = await request('http://localhost:3000/pets', 'post', data);
+
+//     expect(response2.status).toBe(409);
+
+//     const pet = response1.data;
+
+//     await ownerService.deleteOwner(pet.id);
+
+// });
 
 test('Should get pets', async function () {
 
@@ -67,12 +109,28 @@ test('Should not update a pet', async function () {
     const pet = {
         id: 1
     };
-    // Comando para alterar no banco
+
     const response = await request(`http://localhost:3000/pets/${pet.id}`, 'put', pet);
 
     expect(response.status).toBe(404);
 
 });
 
+test('Should delete a pet', async function () {
 
+    const pet = await petService.savePet({id: 1,
+        tipo_animal: 1,
+        nome: generateChar(20),
+        data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
+        sexo: generateChar(1),
+        raca: generateChar(20)});
+    
+    const response = await request(`http://localhost:3000/pets/${pet.id}`, 'delete');
+    
+    expect(response.status).toBe(204);
+
+    const pets = await petService.getPets();
+    expect(pets).toHaveLength(0);
+
+});
 

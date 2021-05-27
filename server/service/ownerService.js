@@ -2,6 +2,10 @@
 
 const ownerData = require('../data/ownerData');
 
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 exports.getOwners = function () {
     return ownerData.getOwners();
 }
@@ -14,6 +18,8 @@ exports.getOwner = async function (cpf) {
 
 exports.saveOwner = async function (owner) {
     const existingOwner = await ownerData.getOwnerByCpf(owner.cpf);
+    if ( !isNumber(owner.cpf) ) throw new Error('CPF must contain only numbers');
+    if ( owner.cpf.length != 11 ) throw new Error('CPF must contain 11 characters');
     if (existingOwner) throw new Error('Owner already exists');
     return ownerData.saveOwner(owner);
 }

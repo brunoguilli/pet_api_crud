@@ -24,8 +24,6 @@ router.post('/owners', async function (req, res, next ) {
         const newOwner = await ownerService.saveOwner(owner);
         res.status(201).json(newOwner);
     } catch (e) {
-        // next(e) -> Acessa os erros centralizdos no index.js
-        // res.status(409).send(e.message);
         next(e);
     }
     
