@@ -7,6 +7,7 @@ app.use(express.json());
 // Delega o local das requisições por meio do middleware
 app.use('/', require('./route/ownerRoute'));
 app.use('/', require('./route/petRoute'));
+app.use('/', require('./route/petOwnerRoute'));
 
 // Error handdler centralizado
 app.use(function (error, req, res, next){

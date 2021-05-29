@@ -9,6 +9,10 @@ exports.getOwner = function (cpf) {
     return database.oneOrNone('select * from owners where cpf = $1', [cpf]);
 };
 
+exports.getOwnerById = function (id) {
+    return database.oneOrNone('select * from owners where id = $1', [id]);
+};
+
 exports.getOwnerByCpf = function (cpf) {
     return database.oneOrNone('select * from owners where cpf = $1', [cpf]);
 };

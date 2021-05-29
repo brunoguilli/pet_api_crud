@@ -44,27 +44,7 @@ test('Should save a pet', async function () {
 
 });
 
-// test.only('Should not save a pet', async function () {
-
-//     const data = {id: 1,
-//         tipo_animal: 1,
-//         nome: generateChar(20),
-//         data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
-//         sexo: generateChar(1),
-//         raca: generateChar(20)};
-
-//     const response1 = await request('http://localhost:3000/pets', 'post', data);
-//     const response2 = await request('http://localhost:3000/pets', 'post', data);
-
-//     expect(response2.status).toBe(409);
-
-//     const pet = response1.data;
-
-//     await ownerService.deleteOwner(pet.id);
-
-// });
-
-test('Should get pets', async function () {
+test.only('Should get pets', async function () {
 
     const pet1 = await petService.savePet({ id: 1,
         tipo_animal: 1,
