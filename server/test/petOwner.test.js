@@ -57,3 +57,37 @@ test('Should save a pet owner', async function () {
     await ownerService.deleteOwner(owner.cpf);
     
 });
+
+test('Should delete a pet owner', async function () {
+
+    // Cria um Dono
+    const owner = await ownerService.saveOwner({id: 1,
+        cpf: generateNumber('CPF'),
+        nome: generateChar(20),
+        data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
+        sexo: generateChar(1)});
+
+    // Cria um Pet
+    const pet = await petService.savePet({ id: 1,
+        tipo_animal: 1,
+        nome: generateChar(20),
+        data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
+        sexo: generateChar(1),
+        raca: generateChar(20)
+    });
+
+    // Cria o dono do pet
+    const petOwner = await petOwnerService.savePetOwner({ 
+        owner_id: owner.id,
+        pet_id: pet.id
+    });
+
+    // Deleta o dono do pet
+    const response = await request('http://localhost:3000/petowners', 'delete', petOwner.id);
+
+    expect(response.status).toBe(204);
+
+    const petOwners = await petOwnerService.getPetOwners();
+    expect(petOwners).toHaveLength(0);
+
+});

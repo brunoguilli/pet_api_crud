@@ -3,11 +3,11 @@
 const pgp = require('pg-promise')();
 
 const db = pgp({
-    user: 'brunoliberali',
-    password: 'userdesenv',
-    host: 'localhost',
-    port: '5433',
-    database: 'dbdesenv'
+    user: process.env.USERDB,
+    password: process.env.PASSDB,
+    host: process.env.HOST,
+    port: process.env.PORT,
+    database: process.env.DATABASE
 });
 
 module.exports = db;

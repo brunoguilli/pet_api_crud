@@ -8,7 +8,7 @@ exports.getUserByLogin = function (login) {
 exports.generateToken = async function (login) {
     const existingUser= await tokenData.getUserByLogin(login);
     if (!existingUser) throw new Error('User not found');
-    const token = jwt.sign({userId: existingUser.id}, global.SECRET, {expiresIn: existingUser.token_expires })
+    const token = jwt.sign({userId: existingUser.id}, process.env.SECRET, {expiresIn: existingUser.token_expires })
     return token;
 }
 
