@@ -1,17 +1,40 @@
+
 const express = require('express');
 const app = express();
 const security = require('./security/jwt');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
 require('dotenv/config');
 
 // Ao realizar uma requisição, mostra o conteúdo do corpo
 app.use(express.json());
 
+// Documentação swagger
+const swaggerOptions = {
+    swaggerDefinition: {
+      info: {
+        version: "1.0.0",
+        title: "Pet API",
+        description: "API for register of a pet and his owner",
+        contact: {
+          name: "Bruno Guimarães Liberali"
+        },
+        servers: ["http://localhost:3000"]
+      }
+    },
+    apis: ["./server/route/*.js"]
+  };
+
+  const swaggerDocs = swaggerJsDoc(swaggerOptions);
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  
 // Verifica se o usuário está passando o TOKEN
 function tokenVerify(req, res, next) {
     security.tokenVerify(req, res, next);
-}
+} 
 
-// Delega o local das requisições por meio do middleware
+// Delega o local das rotas das requisições por meio do middleware
 app.use('/', require('./route/tokenRoute'));
 app.use('/', tokenVerify,require('./route/ownerRoute'));
 app.use('/', require('./route/petRoute'));
@@ -20,6 +43,12 @@ app.use('/', require('./route/petOwnerRoute'));
 // Error handdler centralizado
 app.use(function (error, req, res, next){
     
+    if (error.message === 'You need generete a token at -> http://localhost:3000/token'  ){
+        return res.status(401).send(error.message);
+    }
+    if (error.message === 'User not found'){
+        return res.status(404).send(error.message);
+    }
     if (error.message === 'You need generete a token at -> http://localhost:3000/token' ){
         return res.status(401).send(error.message);
     }
