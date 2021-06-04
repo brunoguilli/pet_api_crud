@@ -69,7 +69,7 @@ router.get('/owners', async function (req, res, next ) {
  *     Owner:
  *       type: "object"
  *       properties:
-*         id:
+ *         id:
  *           type: "number"
  *         cpf:
  *           type: "string"
