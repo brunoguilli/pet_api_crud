@@ -15,10 +15,11 @@ const swaggerOptions = {
     swaggerDefinition: {
       info: {
         version: "1.0.0",
-        title: "Pet API",
-        description: "API for register of a pet and his owner",
+        title: "Pet Registration API",
+        description: "API for register a pet and his owner",
         contact: {
-          name: "Bruno Guimarães Liberali"
+          name: "Bruno Guimarães Liberali",
+          email: "brunoguimaraesliberali@gmail.com"
         },
         servers: ["http://localhost:3000"]
       }
