@@ -84,49 +84,6 @@ router.post('/petowners', async function (req, res, next ) {
 
 /**
  * @swagger
- * /petowners:
- *   put:
- *     tags:
- *     - ""
- *     summary: "Atualiza o owner e o seu pet"
- *     description: "Atualiza o registro de um owner e seu pet."
- *     operationId: "updatePetOwner"
- *     produces:
- *     - "application/json"
- *     parameters:
- *     - in: "body"
- *       name: "body"
- *       description: "Update a Pet Owner object"
- *       required: true
- *       schema:
- *         $ref: "#/definitions/PetOwner"
- *     responses:
- *       401:
- *         description: "Pet not found"
- * definitions:
- *     PetOwner:
- *       type: "object"
- *       properties:
- *          id:
- *            type: "number"
- *          owner_id:
- *            type: "number"
- *          pet_id:
- *            type: "number"
- */
-router.put('/petowners/', async function (req, res, next ) {
-    const petOwner = req.body;
-    try {
-        await petOwnerService.updatePetOwner(petOwner);
-        res.status(204).end();
-    } catch (e) {
-        next(e);
-    }
-
-} );
-
-/**
- * @swagger
  * /petowners/{id}:
  *   delete:
  *     tags:

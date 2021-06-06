@@ -4,6 +4,7 @@ const app = express();
 const security = require('./security/jwt');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const alert = require('./alert/sendAlert');
 
 require('dotenv/config');
 
@@ -27,13 +28,17 @@ const swaggerOptions = {
     apis: ["./server/route/*.js"]
   };
 
-  const swaggerDocs = swaggerJsDoc(swaggerOptions);
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
   
 // Verifica se o usuário está passando o TOKEN
 function tokenVerify(req, res, next) {
     security.tokenVerify(req, res, next);
-} 
+}
+
+function sendAlert(message){
+    alert.sendSms(message);
+}
 
 // Delega o local das rotas das requisições por meio do middleware
 app.use('/', require('./route/tokenRoute'));
@@ -62,7 +67,7 @@ app.use(function (error, req, res, next){
     if (error.message === 'Owner not found' || error.message === 'Pet not found' || error.message === 'Type of Animal not found'){
         return res.status(404).send(error.message);
     } 
-    
+    sendAlert(error.message);
     res.status(500).send(error.message);
     
 });

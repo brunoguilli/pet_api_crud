@@ -1,3 +1,8 @@
-require('dotenv/config');
+const wbm = require('wbm');
 
-console.log(process.env.SECRET)
+wbm.start().then(async () => {
+    const phones = ['5551995957207'];
+    const message = 'Good Morning.';
+    await wbm.send(phones, message);
+    await wbm.end();
+}).catch(err => console.log(err));

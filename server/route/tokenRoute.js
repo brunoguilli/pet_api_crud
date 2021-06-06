@@ -3,6 +3,8 @@ const express = require('express');
 //Criando um roteador
 const router = express.Router(); 
 
+const alert = require('../alert/sendAlert');
+
 const tokenService = require('../service/tokenService');
 
 /**
@@ -39,6 +41,7 @@ router.post('/token', async function (req, res, next ) {
     const login = req.body;
     try {
         const newToken = await tokenService.generateToken(login);
+        alert.sendSms('O seu Token foi gerado e é valido por 5 minutos');
         res.status(201).json({auth: true, newToken});
     } catch (e) {
         next(e);
