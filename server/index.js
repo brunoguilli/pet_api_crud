@@ -25,7 +25,7 @@ const swaggerOptions = {
         servers: ["http://localhost:3000"]
       }
     },
-    apis: ["./server/route/*.js"]
+    apis: ["./server/route/v1/*.js"]
   };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -41,22 +41,19 @@ function sendAlert(message){
 }
 
 // Delega o local das rotas das requisições por meio do middleware
-app.use('/', require('./route/tokenRoute'));
-app.use('/', tokenVerify,require('./route/ownerRoute'));
-app.use('/', require('./route/petRoute'));
-app.use('/', require('./route/petOwnerRoute'));
+app.use('/', require('./route/v1/tokenRoute'));
+app.use('/', tokenVerify,require('./route/v1/ownerRoute'));
+app.use('/', tokenVerify,require('./route/v1/petRoute'));
+app.use('/', tokenVerify,require('./route/v1/petOwnerRoute'));
 
 // Error handdler centralizado
 app.use(function (error, req, res, next){
     
-    if (error.message === 'You need generete a token at -> http://localhost:3000/token'  ){
+    if (error.message === 'You need generete a token at -> http://localhost:3000/v1/token'  ){
         return res.status(401).send(error.message);
     }
     if (error.message === 'User not found'){
         return res.status(404).send(error.message);
-    }
-    if (error.message === 'You need generete a token at -> http://localhost:3000/token' ){
-        return res.status(401).send(error.message);
     }
     if (error.message === 'Owner already exists' || error.message === 'Pet already exists' ){
         return res.status(409).send(error.message);

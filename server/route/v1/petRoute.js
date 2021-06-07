@@ -2,11 +2,11 @@ const express = require('express');
 
 const router = express.Router(); 
 
-const petService = require('../service/petService');
+const petService = require('../../service/petService');
 
 /**
  * @swagger
- * /pets:
+ * /v1/pets:
  *   get:
  *     tags:
  *     - ""
@@ -34,7 +34,7 @@ const petService = require('../service/petService');
  *              raca:
  *                type: "string"
  */
-router.get('/pets', async function (req, res, next ) {
+router.get('/v1/pets', async function (req, res, next ) {
     try{
         const pets = await petService.getPets();
         res.json(pets);
@@ -45,7 +45,7 @@ router.get('/pets', async function (req, res, next ) {
 
 /**
  * @swagger
- * /pet:
+ * /v1/pet:
  *   post:
  *     tags:
  *     - ""
@@ -83,7 +83,7 @@ router.get('/pets', async function (req, res, next ) {
  *          raca:
  *            type: "string"
  */
-router.post('/pets', async function (req, res, next ) {
+router.post('/v1/pets', async function (req, res, next ) {
     
     const pet = req.body;
     try {
@@ -97,7 +97,7 @@ router.post('/pets', async function (req, res, next ) {
 
 /**
  * @swagger
- * /pet/{id}:
+ * /v1/pet/{id}:
  *   put:
  *     tags:
  *     - ""
@@ -136,7 +136,7 @@ router.post('/pets', async function (req, res, next ) {
  *          raca:
  *            type: "string"  
  */
-router.put('/pets/:id', async function (req, res, next ) {
+router.put('/v1/pets/:id', async function (req, res, next ) {
     const pet = req.body;
     try {
         await petService.updatePet(req.params.id, pet);
@@ -149,7 +149,7 @@ router.put('/pets/:id', async function (req, res, next ) {
 
 /**
  * @swagger
- * /pet/{id}:
+ * /v1/pet/{id}:
  *   delete:
  *     tags:
  *     - ""
@@ -186,7 +186,7 @@ router.put('/pets/:id', async function (req, res, next ) {
  *          raca:
  *            type: "string" 
  */
-router.delete('/pets/:id', async function (req, res, next ) {
+router.delete('/v1/pets/:id', async function (req, res, next ) {
     try{
         await petService.deletePet(req.params.id);
         res.status(204).end();

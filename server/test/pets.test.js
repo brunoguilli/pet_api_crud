@@ -28,7 +28,7 @@ test('Should save a pet', async function () {
         sexo: generateChar(1),
         raca: generateChar(20)};
 
-    const response = await request('http://localhost:3000/pets', 'post', data);
+    const response = await request('http://localhost:3000/v1/pets', 'post', data);
 
     expect(response.status).toBe(201);
 
@@ -44,7 +44,7 @@ test('Should save a pet', async function () {
 
 });
 
-test.only('Should get pets', async function () {
+test('Should get pets', async function () {
 
     const pet1 = await petService.savePet({ id: 1,
         tipo_animal: 1,
@@ -70,7 +70,7 @@ test.only('Should get pets', async function () {
         raca: generateChar(20)
     });
 
-    const response = await request ('http://localhost:3000/pets', 'get');
+    const response = await request ('http://localhost:3000/v1/pets', 'get');
 
     expect(response.status).toBe(200);
 
@@ -90,7 +90,7 @@ test('Should not update a pet', async function () {
         id: 1
     };
 
-    const response = await request(`http://localhost:3000/pets/${pet.id}`, 'put', pet);
+    const response = await request(`http://localhost:3000/v1/pets/${pet.id}`, 'put', pet);
 
     expect(response.status).toBe(404);
 
@@ -105,7 +105,7 @@ test('Should delete a pet', async function () {
         sexo: generateChar(1),
         raca: generateChar(20)});
     
-    const response = await request(`http://localhost:3000/pets/${pet.id}`, 'delete');
+    const response = await request(`http://localhost:3000/v1/pets/${pet.id}`, 'delete');
     
     expect(response.status).toBe(204);
 

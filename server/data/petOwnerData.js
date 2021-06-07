@@ -2,19 +2,19 @@
 const database = require('../infra/database');
 
 exports.getPetOwners = function () {
-    return database.query('select * from pet_onwer');
+    return database.query('select * from pet_owner');
 };
 
 exports.getPetOwner = function (id) {
-    return database.oneOrNone('select * from pet_onwer where id = $1', [id]);
+    return database.oneOrNone('select * from pet_owner where id = $1', [id]);
 };
 
 exports.getOwnerById = function (id) {
-    return database.oneOrNone('select * from pet_onwer where owner_id = $1', [id]);
+    return database.oneOrNone('select * from pet_owner where owner_id = $1', [id]);
 };
 
 exports.getPetById = function (id) {
-    return database.oneOrNone('select * from pet_onwer where pet_id = $1', [id]);
+    return database.oneOrNone('select * from pet_owner where pet_id = $1', [id]);
 };
 
 exports.getPetAndOwnerById = function (petOwner) {

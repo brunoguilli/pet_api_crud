@@ -43,7 +43,7 @@ test('Should save a pet owner', async function () {
         owner_id: owner.id,
         pet_id: pet.id };
     
-    const response = await request('http://localhost:3000/petowners', 'post', data);
+    const response = await request('http://localhost:3000/v1/petowners', 'post', data);
 
     expect(response.status).toBe(201);
 
@@ -75,7 +75,6 @@ test('Should delete a pet owner', async function () {
         sexo: generateChar(1),
         raca: generateChar(20)
     });
-
     // Cria o dono do pet
     const petOwner = await petOwnerService.savePetOwner({ 
         owner_id: owner.id,
@@ -83,11 +82,19 @@ test('Should delete a pet owner', async function () {
     });
 
     // Deleta o dono do pet
-    const response = await request('http://localhost:3000/petowners', 'delete', petOwner.id);
+    const response = await request(`http://localhost:3000/v1/petowners/${petOwner.id}`, 'delete');
 
     expect(response.status).toBe(204);
+    
+    await petService.deletePet(pet.id);
+    await ownerService.deleteOwner(owner.cpf);
 
     const petOwners = await petOwnerService.getPetOwners();
+    const pets = await petService.getPets();
+    const owners = await ownerService.getOwners();
+
+    expect(pets).toHaveLength(0);
+    expect(owners).toHaveLength(0);
     expect(petOwners).toHaveLength(0);
 
 });

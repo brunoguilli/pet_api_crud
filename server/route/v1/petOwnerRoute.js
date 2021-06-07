@@ -5,11 +5,11 @@ const express = require('express');
 //Criando um roteador
 const router = express.Router(); 
 
-const petOwnerService = require('../service/petOwnerService');
+const petOwnerService = require('../../service/petOwnerService');
 
 /**
  * @swagger
- * /petowners:
+ * /v1/petowners:
  *   get:
  *     tags:
  *     - ""
@@ -29,7 +29,7 @@ const petOwnerService = require('../service/petOwnerService');
  *              pet_id:
  *                type: "number"
  */
-router.get('/petowners', async function (req, res, next ) {
+router.get('/v1/petowners', async function (req, res, next ) {
     try{
         const owners = await petOwnerService.getPetOwners();
         res.json(owners);
@@ -40,7 +40,7 @@ router.get('/petowners', async function (req, res, next ) {
 
 /**
  * @swagger
- * /petowners:
+ * /v1/petowners:
  *   post:
  *     tags:
  *     - ""
@@ -70,7 +70,7 @@ router.get('/petowners', async function (req, res, next ) {
  *          pet_id:
  *            type: "number"
  */
-router.post('/petowners', async function (req, res, next ) {
+router.post('/v1/petowners', async function (req, res, next ) {
     // req.body -> corpo da requisição
     const petOwner = req.body;
     try {
@@ -84,7 +84,7 @@ router.post('/petowners', async function (req, res, next ) {
 
 /**
  * @swagger
- * /petowners/{id}:
+ * /v1/petowners/{id}:
  *   delete:
  *     tags:
  *     - ""
@@ -113,7 +113,7 @@ router.post('/petowners', async function (req, res, next ) {
  *          pet_id:
  *            type: "number" 
  */
-router.delete('/petowners/:id', async function (req, res, next ) {
+router.delete('/v1/petowners/:id', async function (req, res, next ) {
     try{
         await petOwnerService.deletePetOwner(req.params.id);
         res.status(204).end();

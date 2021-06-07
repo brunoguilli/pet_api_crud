@@ -5,11 +5,11 @@ const express = require('express');
 //Criando um roteador
 const router = express.Router(); 
 
-const ownerService = require('../service/ownerService');
+const ownerService = require('../../service/ownerService');
 
 /**
  * @swagger
- * /owners:
+ * /v1/owners:
  *   get:
  *     tags:
  *     - ""
@@ -35,7 +35,7 @@ const ownerService = require('../service/ownerService');
  *              sexo:
  *                type: "string"  
  */
-router.get('/owners', async function (req, res, next ) {
+router.get('/v1/owners', async function (req, res, next ) {
     try{
         const owners = await ownerService.getOwners();
         res.json(owners);
@@ -46,7 +46,7 @@ router.get('/owners', async function (req, res, next ) {
 
 /**
  * @swagger
- * /owner:
+ * /v1/owner:
  *   post:
  *     tags:
  *     - ""
@@ -82,7 +82,7 @@ router.get('/owners', async function (req, res, next ) {
  *         sexo:
  *           type: "string"  
  */
-router.post('/owners', async function (req, res, next ) {
+router.post('/v1/owners', async function (req, res, next ) {
     // req.body -> corpo da requisição
     const owner = req.body;
     try {
@@ -96,7 +96,7 @@ router.post('/owners', async function (req, res, next ) {
 
 /**
  * @swagger
- * /owner/{cpf}:
+ * /v1/owner/{cpf}:
  *   put:
  *     tags:
  *     - ""
@@ -133,7 +133,7 @@ router.post('/owners', async function (req, res, next ) {
  *         sexo:
  *           type: "string"  
  */
-router.put('/owners/:cpf', async function (req, res, next ) {
+router.put('/v1/owners/:cpf', async function (req, res, next ) {
     const owner = req.body;
     try {
         await ownerService.updateOwner(req.params.cpf, owner);
@@ -146,7 +146,7 @@ router.put('/owners/:cpf', async function (req, res, next ) {
 
 /**
  * @swagger
- * /owner/{cpf}:
+ * /v1/owner/{cpf}:
  *   delete:
  *     tags:
  *     - ""
@@ -181,7 +181,7 @@ router.put('/owners/:cpf', async function (req, res, next ) {
  *         sexo:
  *           type: "string"  
  */
-router.delete('/owners/:cpf', async function (req, res, next ) {
+router.delete('/v1/owners/:cpf', async function (req, res, next ) {
     try{
         await ownerService.deleteOwner(req.params.cpf);
         res.status(204).end();

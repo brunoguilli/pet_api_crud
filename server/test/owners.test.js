@@ -39,7 +39,7 @@ test('Should get owners', async function () {
         data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
         sexo: generateChar(1)});
     
-    const response = await request ('http://localhost:3000/owners', 'get');
+    const response = await request ('http://localhost:3000/v1/owners', 'get');
 
     expect(response.status).toBe(200);
 
@@ -58,7 +58,7 @@ test('Should save a owner', async function () {
         data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
         sexo: generateChar(1)};
 
-    const response = await request('http://localhost:3000/owners', 'post', data);
+    const response = await request('http://localhost:3000/v1/owners', 'post', data);
 
     expect(response.status).toBe(201);
 
@@ -80,8 +80,8 @@ test('Should not save a owner', async function () {
         data_nascimento: randomDate(new Date(1990, 0, 1), new Date()),
         sexo: generateChar(1)};
 
-    const response1 = await request('http://localhost:3000/owners', 'post', data);
-    const response2 = await request('http://localhost:3000/owners', 'post', data);
+    const response1 = await request('http://localhost:3000/v1/owners', 'post', data);
+    const response2 = await request('http://localhost:3000/v1/owners', 'post', data);
 
     expect(response2.status).toBe(409);
 
@@ -105,7 +105,7 @@ test('Should update a owner', async function () {
     owner.sexo = generateChar(1);
 
     // Comando para alterar no banco
-    const response = await request(`http://localhost:3000/owners/${owner.cpf}`, 'put', owner);
+    const response = await request(`http://localhost:3000/v1/owners/${owner.cpf}`, 'put', owner);
 
     expect(response.status).toBe(204);
 
@@ -129,7 +129,7 @@ test('Should not update a owner', async function () {
         cpf: 1
     };
     // Comando para alterar no banco
-    const response = await request(`http://localhost:3000/owners/${owner.cpf}`, 'put', owner);
+    const response = await request(`http://localhost:3000/v1/owners/${owner.cpf}`, 'put', owner);
 
     expect(response.status).toBe(404);
 
@@ -144,7 +144,7 @@ test('Should delete a owner', async function () {
         sexo: generateChar(1)});
     
     // Comando para alterar no banco
-    const response = await request(`http://localhost:3000/owners/${owner.cpf}`, 'delete');
+    const response = await request(`http://localhost:3000/v1/owners/${owner.cpf}`, 'delete');
     
     expect(response.status).toBe(204);
 

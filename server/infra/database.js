@@ -1,3 +1,4 @@
+require('dotenv/config');
 // Configuração do banco de dados
 // pg-promise = Biblioteca que escolhemos
 const pgp = require('pg-promise')();

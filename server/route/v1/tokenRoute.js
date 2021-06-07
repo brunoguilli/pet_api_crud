@@ -3,13 +3,13 @@ const express = require('express');
 //Criando um roteador
 const router = express.Router(); 
 
-const alert = require('../alert/sendAlert');
+const alert = require('../../alert/sendAlert');
 
-const tokenService = require('../service/tokenService');
+const tokenService = require('../../service/tokenService');
 
 /**
  * @swagger
- * /token:
+ * /v1/token:
  *   post:
  *     tags:
  *     - ""
@@ -37,7 +37,7 @@ const tokenService = require('../service/tokenService');
  *         user_password:
  *           type: "string"
  */
-router.post('/token', async function (req, res, next ) {
+router.post('/v1/token', async function (req, res, next ) {
     const login = req.body;
     try {
         const newToken = await tokenService.generateToken(login);
