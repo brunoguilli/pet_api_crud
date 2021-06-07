@@ -4,6 +4,7 @@
   "description": "Pet API",
   "main": "index.js",
   "scripts": {
+    "start": "node app",
     "test": "jest --env node --detectOpenHandles"
   },
   "repository": {
