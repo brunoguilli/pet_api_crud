@@ -5,6 +5,10 @@ exports.getPetOwners = function () {
     return database.query('select * from pet_owner');
 };
 
+exports.getPetOwnersName = function () {
+    return database.query('select po.id ,po.owner_id, o.nome nome_owner, po.pet_id,p.nome nome_pet from pet_owner po ,pets p,owners o where po.owner_id = o.id and po.pet_id = p.id');
+};
+
 exports.getPetOwner = function (id) {
     return database.oneOrNone('select * from pet_owner where id = $1', [id]);
 };

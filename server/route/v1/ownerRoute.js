@@ -42,11 +42,57 @@ router.get('/v1/owners', async function (req, res, next ) {
     } catch (e) {
         next(e);
     }
-}); 
+});
 
 /**
  * @swagger
- * /v1/owner:
+ * /v1/owners/{id}:
+ *   get:
+ *     tags:
+ *     - ""
+ *     summary: "Retorna um Owner"
+ *     description: "Retorna um Owner pelo ID."
+ *     operationId: "getOwnerById"
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       description: "Id do Owner"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       401:
+ *         description: "Owner not found"
+ * definitions:
+ *     Owner:
+ *       type: "object"
+ *       properties:
+ *         id:
+ *           type: "number"
+ *         cpf:
+ *           type: "string"
+ *         nome:
+ *           type: "string"
+ *         data_nascimento:
+ *           type: "string"
+ *           example: "08-jun-2021"
+ *           format: date
+ *         sexo:
+ *           type: "string"  
+ */
+ router.get('/v1/owners/:id', async function (req, res, next ) {
+    try{
+        const owners = await ownerService.getOwnerById(req.params.id);
+        res.json(owners);
+    } catch (e) {
+        next(e);
+    }
+});
+
+/**
+ * @swagger
+ * /v1/owners:
  *   post:
  *     tags:
  *     - ""
@@ -96,7 +142,7 @@ router.post('/v1/owners', async function (req, res, next ) {
 
 /**
  * @swagger
- * /v1/owner/{cpf}:
+ * /v1/owners/{cpf}:
  *   put:
  *     tags:
  *     - ""
@@ -144,9 +190,10 @@ router.put('/v1/owners/:cpf', async function (req, res, next ) {
 
 } );
 
+
 /**
  * @swagger
- * /v1/owner/{cpf}:
+ * /v1/owners/{cpf}:
  *   delete:
  *     tags:
  *     - ""

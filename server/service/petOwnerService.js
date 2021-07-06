@@ -7,6 +7,10 @@ exports.getPetOwners = function () {
     return petOwnerData.getPetOwners();
 }
 
+exports.getPetOwnersName = function () {
+    return petOwnerData.getPetOwnersName();
+}
+
 exports.getPetOwner = async function (id) {
     const petOwner = await petOwnerData.getPetOwner(id);
     if (!petOwner) throw new Error('Pet Owner not found');

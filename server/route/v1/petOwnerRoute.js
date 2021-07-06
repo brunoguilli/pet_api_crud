@@ -40,6 +40,41 @@ router.get('/v1/petowners', async function (req, res, next ) {
 
 /**
  * @swagger
+ * /v1/petowners/name:
+ *   get:
+ *     tags:
+ *     - ""
+ *     summary: "Retorna uma lista dos Owners e seus Pets"
+ *     description: "Retorna uma lista contendo todos os Owners e seus Pets."
+ *     responses:
+ *      '200':
+ *        description: Uma lista de Owners e seus Pets
+ *        schema:
+ *          type: array
+ *          items:
+ *            properties:
+ *              id:
+ *                type: "number"
+ *              owner_id:
+ *                type: "number"
+ *              nome_owner:
+ *                type: "string" 
+ *              pet_id:
+ *                type: "number"
+ *              nome_pet:
+ *                type: "string" 
+ */
+ router.get('/v1/petowners/name', async function (req, res, next ) {
+    try{
+        const owners = await petOwnerService.getPetOwnersName();
+        res.json(owners);
+    } catch (e) {
+        next(e);
+    }
+}); 
+
+/**
+ * @swagger
  * /v1/petowners:
  *   post:
  *     tags:

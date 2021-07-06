@@ -16,6 +16,12 @@ exports.getOwner = async function (cpf) {
     return owner;
 }
 
+exports.getOwnerById = async function (id) {
+    const owner = await ownerData.getOwnerById(id);
+    if (!owner) throw new Error('Owner not found');
+    return owner;
+}
+
 exports.saveOwner = async function (owner) {
     const existingOwner = await ownerData.getOwnerByCpf(owner.cpf);
     if ( !isNumber(owner.cpf) ) throw new Error('CPF must contain only numbers');

@@ -45,6 +45,52 @@ router.get('/v1/pets', async function (req, res, next ) {
 
 /**
  * @swagger
+ * /v1/pets/{id}:
+ *   get:
+ *     tags:
+ *     - ""
+ *     summary: "Retorna um Pet"
+ *     description: "Retorna um Pet pelo ID."
+ *     operationId: "getPet"
+ *     produces:
+ *     - "application/json"
+ *     parameters:
+ *     - name: "id"
+ *       in: "path"
+ *       description: "Id do Pet"
+ *       required: true
+ *       type: "string"
+ *     responses:
+ *       401:
+ *         description: "Pet not found"
+ * definitions:
+ *     Owner:
+ *       type: "object"
+ *       properties:
+ *         id:
+ *           type: "number"
+ *         cpf:
+ *           type: "string"
+ *         nome:
+ *           type: "string"
+ *         data_nascimento:
+ *           type: "string"
+ *           example: "08-jun-2021"
+ *           format: date
+ *         sexo:
+ *           type: "string"  
+ */
+ router.get('/v1/pets/:id', async function (req, res, next ) {
+    try{
+        const owners = await petService.getPet(req.params.id);
+        res.json(owners);
+    } catch (e) {
+        next(e);
+    }
+});
+
+/**
+ * @swagger
  * /v1/pet:
  *   post:
  *     tags:

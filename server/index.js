@@ -1,6 +1,8 @@
 
 const express = require('express');
+const cors = require("cors");
 const app = express();
+const port = process.env.PORTAPP || 3000
 const security = require('./security/jwt');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -10,6 +12,8 @@ require('dotenv/config');
 
 // Ao realizar uma requisição, mostra o conteúdo do corpo
 app.use(express.json());
+
+app.use(cors());
 
 // Documentação swagger
 const swaggerOptions = {
@@ -41,10 +45,16 @@ function sendAlert(message){
 }
 
 // Delega o local das rotas das requisições por meio do middleware
+// app.use('/', require('./route/v1/tokenRoute'));
+// app.use('/', tokenVerify, require('./route/v1/ownerRoute'));
+// app.use('/', tokenVerify, require('./route/v1/petRoute'));
+// app.use('/', tokenVerify, require('./route/v1/petOwnerRoute'));
+
 app.use('/', require('./route/v1/tokenRoute'));
-app.use('/', tokenVerify,require('./route/v1/ownerRoute'));
-app.use('/', tokenVerify,require('./route/v1/petRoute'));
-app.use('/', tokenVerify,require('./route/v1/petOwnerRoute'));
+app.use('/', require('./route/v1/ownerRoute'));
+app.use('/', require('./route/v1/petRoute'));
+app.use('/', require('./route/v1/petOwnerRoute'));
+
 
 // Error handdler centralizado
 app.use(function (error, req, res, next){
@@ -64,9 +74,9 @@ app.use(function (error, req, res, next){
     if (error.message === 'Owner not found' || error.message === 'Pet not found' || error.message === 'Type of Animal not found'){
         return res.status(404).send(error.message);
     } 
-    sendAlert(error.message);
+    // sendAlert(error.message);
     res.status(500).send(error.message);
     
 });
 
-app.listen(3000);
+app.listen(port);
