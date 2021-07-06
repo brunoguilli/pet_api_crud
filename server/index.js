@@ -74,7 +74,7 @@ app.use(function (error, req, res, next){
     if (error.message === 'Owner not found' || error.message === 'Pet not found' || error.message === 'Type of Animal not found'){
         return res.status(404).send(error.message);
     } 
-    // sendAlert(error.message);
+    sendAlert(error.message);
     res.status(500).send(error.message);
     
 });
